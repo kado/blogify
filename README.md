@@ -1,2 +1,2 @@
 # blogify
-Blogify is micro blog engine!
+Blogify is a micro blog engine developed in .NET Core
