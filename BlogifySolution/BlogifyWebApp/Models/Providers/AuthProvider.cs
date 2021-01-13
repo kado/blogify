@@ -54,6 +54,9 @@ namespace BlogifyWebApp.Models.Providers
                     {
                         //set identity
                         return true;
+                    }else
+                    {
+                        throw new Exception("Invalid Password.");
                     }
 
                 }else
