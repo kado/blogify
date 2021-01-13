@@ -23,6 +23,14 @@ namespace BlogifyWebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //2020-01-13 - Kadel D. Lacatt
+            //.NET Core DI services registration
+            services.AddScoped<BlogifyWebApp.Models.Interfaces.IBlogProvider, BlogifyWebApp.Models.Providers.BlogProvider>();
+            services.AddScoped<BlogifyWebApp.Models.Interfaces.IBlog, BlogifyWebApp.Models.EF.Blog>();
+            services.AddScoped<BlogifyWebApp.Models.Interfaces.ICategory, BlogifyWebApp.Models.EF.Category>();
+            services.AddScoped<BlogifyWebApp.Models.Interfaces.IUser, BlogifyWebApp.Models.EF.User>();
+            services.AddScoped<BlogifyWebApp.Models.Interfaces.IComment, BlogifyWebApp.Models.EF.Comment>();
+
             services.AddControllersWithViews();
         }
 

@@ -1,0 +1,82 @@
+﻿@model BlogifyWebApp.Models.BlogDetailViewModel
+@{
+    ViewData["Title"] = ViewBag.BlogTitle;
+}
+<h1>@Model.blog.Title</h1>
+
+<div class="row">
+    <div class="col-12" style="overflow-y: auto; height: 400px;">
+        @Model.blog.Data
+    </div>
+</div>
+<h3>Comments</h3>
+<!-- Renders a partial view with a bootstrap alert, showing information to the user -->
+<partial name="_ResultAlert" model="(BlogifyWebApp.Models.ResultViewModel) ViewBag.Result" />
+
+<div class="card">
+    <div class="card-header border-bottom">
+        <h3>What users are saying about this</h3>
+    </div>
+    <div class="card-body" style="overflow-y: scroll; max-height: 300px;">
+        <div class="col-12">
+            @if (Model.comments != null)
+            {
+                if (Model.comments.Count() > 0)
+                {
+                    @foreach (BlogifyWebApp.Models.EF.Comment item in Model.comments)
+                    {
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="text-sm-left">@item.Data</p>
+                                <div class="row">
+                                    <div class="col-6 text-left">
+                                        <label asp-for="@item.Author" class="font-weight-bold"></label>: @item.Author
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <label asp-for="@item.Created" class="font-weight-bold"></label>: @item.Created.ToString("yyyy-MM-dd HH:mm")
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                    }
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-12"><h4>No comments yet, be the first.</h4></div>
+                    </div>
+                }
+
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-12"><h4>We had a proble retrieving the comments. Contact support.</h4></div>
+                </div>
+            }
+
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-12">
+                <h3>Add a New Comment</h3>
+                <form asp-controller="Blog" asp-action="Comment">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.AntiForgeryToken()
+                    <p class="text-right" style="color: darkgrey">Only 200 Characters.</p>
+
+                    <textarea maxlength="200" class="form-control" name="Data" required>@if (ViewBag.CommentData != null) {@ViewBag.CommentData}</textarea>
+                    <input type="hidden" name="BlogId" value="@Model.blog.Id" required />
+                    <button type="submit" class="btn btn-success btn-sm mt-5">
+                        <i class="fa fa-paper-plane"></i>
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

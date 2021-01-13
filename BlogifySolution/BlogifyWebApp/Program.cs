@@ -16,8 +16,15 @@ namespace BlogifyWebApp
             CreateHostBuilder(args).Build().Run();
         }
 
+        //2020-01-13 - Kadel D. Lacatt
+        //ConfigureLoggin added for debug logging
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureLogging(logging => 
+                {
+                    logging.ClearProviders();
+                    logging.AddDebug();
+                }) 
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
