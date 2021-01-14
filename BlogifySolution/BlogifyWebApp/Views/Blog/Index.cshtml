@@ -26,17 +26,6 @@
         </div>
         <div class="col-3">
         </div>
-
-        @if (User.Identity.IsAuthenticated)
-        {
-            if (User.IsInRole("Writer"))
-            {
-                <div class="col-2">
-                    <a asp-action="Create" asp-controller="Blog" class="btn btn-success">Add New</a>
-                </div>
-            }
-        }
-
     </div>
 
     @Html.AntiForgeryToken()

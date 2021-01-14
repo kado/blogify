@@ -436,3 +436,4 @@ C:\Working\blogify\BlogifySolution\BlogifyWebApp\obj\Debug\net5.0\Razor\Views\Sh
 C:\Working\blogify\BlogifySolution\BlogifyWebApp\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs
 C:\Working\blogify\BlogifySolution\BlogifyWebApp\obj\Debug\net5.0\Razor\Views\Blog\MyBlogs.cshtml.g.cs
 C:\Working\blogify\BlogifySolution\BlogifyWebApp\obj\Debug\net5.0\Razor\Views\Blog\Create.cshtml.g.cs
+C:\Working\blogify\BlogifySolution\BlogifyWebApp\obj\Debug\net5.0\Razor\Views\Blog\Edit.cshtml.g.cs

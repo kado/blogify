@@ -51,6 +51,8 @@
                     <th>Title</th>
                     <th>Created</th>
                     <th>Status</th>
+                    <th>Editor</th>
+                    <th>Edited</th>
                 </tr>
             </thead>
             <tbody>
@@ -81,6 +83,12 @@
                                 <td>@item.Title</td>
                                 <td>@item.Created.ToString("yyyy-MM-dd HH:MM")</td>
                                 <td>@BlogifyWebApp.Models.Helpers.GeneralHelper.STATUSNAMES[@item.Status]</td>
+                                <td>@item.Editor</td>
+                                <td>@if (item.Edited != null)
+                                    { 
+                                        @item.Edited.GetValueOrDefault().ToString("yyyy-MM-dd HH:MM")
+                                    }
+                                </td>
                             </tr>
                         }
                     }

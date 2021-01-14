@@ -40,7 +40,13 @@ namespace BlogifyWebApp.Models
             this.Title = "Warning!";
             this.Message = "This requires your attention. " + customMessage;
         }
-
+        public void addWarningMessage(string customMessage)
+        {
+            this.Code = -3;
+            this.Type = this.Tipos["warning"];
+            this.Title = "Warning!";
+            this.Message = this.Message + "\n" + customMessage;
+        }
         public void setSuccess(int customCode = 0, string customMessage = "")
         {
             this.Code = customCode;

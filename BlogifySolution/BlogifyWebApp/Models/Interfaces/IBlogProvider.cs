@@ -15,7 +15,9 @@ namespace BlogifyWebApp.Models.Interfaces
         public IEnumerable<ICategory> ListCategories();
         public IEnumerable<IBlog> ListBlogs(int? blogCategory);
         public bool AddBlog(IBlog blog);
+        public bool AddBlog(int blogCategory, string blogTitle, string blogData, string autorUser);
         public IBlog GetBlog(int blogId);
+        public IBlog GetBlogForEdition(int blogId, string userName);
         public bool SaveBlog(IBlog blog);
         public bool DeleteBlog(int blogId);
         public bool AddComment(int blogId, string commentData, string commentAuthor);

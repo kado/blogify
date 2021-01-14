@@ -1,17 +1,18 @@
 ﻿@model BlogifyWebApp.Models.BlogCreateViewModel
 
 @{
-    ViewData["Title"] = "Create a Blog Entry";
+    ViewData["Title"] = "Edit Blog Entry";
 }
 
-<h1>Create a Blog Entry</h1>
+<h1>Edit a Blog Entry</h1>
 <hr />
 <!-- Renders a partial view with a bootstrap alert, showing information to the user -->
 <partial name="_ResultAlert" model="(BlogifyWebApp.Models.ResultViewModel) ViewBag.Result" />
 <div class="row">
     <div class="col-12">
-        <form asp-action="Create" asp-controller="Blog">
+        <form asp-action="Edit" asp-controller="Blog">
             @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id"  />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Category" class="control-label"></label>
@@ -31,7 +32,7 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-success btn-block">
                     <i class="fa fa-paper-plane"></i>
-                    Submit
+                    Update
                 </button>
             </div>
         </form>

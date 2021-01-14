@@ -87,7 +87,14 @@ namespace BlogifyWebApp.Controllers
             }
             
             listBlogVM.BlogCategories = sli;
-            listBlogVM.BlogEntries = _blogProvider.ListBlogs((categoryId == "" ? null : int.Parse(categoryId)));
+            if (String.IsNullOrEmpty(categoryId))
+            {
+                listBlogVM.BlogEntries = _blogProvider.ListBlogs(null);
+            }else
+            {
+                listBlogVM.BlogEntries = _blogProvider.ListBlogs(int.Parse(categoryId));
+            }
+            
 
             return View(listBlogVM);
 
@@ -185,6 +192,15 @@ namespace BlogifyWebApp.Controllers
 
             listBlogVM.BlogCategories = sli;
             listBlogVM.BlogEntries = _blogProvider.ListMyBlogs(userName, (categoryId == "" ? null : int.Parse(categoryId)));
+
+            if (String.IsNullOrEmpty(categoryId))
+            {
+                listBlogVM.BlogEntries = _blogProvider.ListMyBlogs(userName, null);
+            }
+            else
+            {
+                listBlogVM.BlogEntries = _blogProvider.ListMyBlogs(userName, int.Parse(categoryId));
+            }
             return View(listBlogVM);
 
         }
@@ -228,16 +244,17 @@ namespace BlogifyWebApp.Controllers
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
 
-
-        [Authorize]
+        //2021-01-14 - Kadel D. Lacatt
+        //public ActionResult MyBlogs()
+        //Handles GET verb requests for BlogController/Create. Creates a list of selectlistitem with categories
+        //Authorized for User with Writer role
+        //Returns Create View with the form for create a blog entry.
+        [Authorize(Roles = "Writer")]
         [HttpGet]
-        // GET: BlogController/Create
         public ActionResult Create()
         {
 
-
             var sli = new List<SelectListItem>();
-            sli.Add(new SelectListItem { Text = "[CATEGORY]", Value = "", Selected = false });
 
             foreach (ICategory cat in _blogProvider.ListCategories())
             {
@@ -254,64 +271,194 @@ namespace BlogifyWebApp.Controllers
 
             return View();
         }
+        //-------------------------------------------------------------------------------------------------------------------------------------
 
-        // POST: BlogController/Create
+        //2021-01-14 - Kadel D. Lacatt
+        //public ActionResult Create(IBlog blog)
+        //Handles POST requests for BlogController/Create. Validates the blog data and add it to db
+        //Authorized for User with Writer role
+        //Returns Succesful creation redirects to MyBlogs (GET) action. 
+        //on failed creation returns Create View with model and resultviewmodel for rendering 
+        //alerts to the user
+        [Authorize(Roles = "Writer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create([FromForm]BlogCreateViewModel blog)
         {
+            ResultViewModel result = new ResultViewModel();
+            string userName = HttpContext.User.Identity.Name;
+            
             try
             {
-                return RedirectToAction(nameof(Index));
+                //Validate data received from the form.
+                if (!String.IsNullOrEmpty(blog.Title) && !String.IsNullOrEmpty(blog.Data))
+                {
+                    //Check length requirements 
+                    if (blog.Data.Length<=5000 && blog.Title.Length<=120)
+                    {
+                        
+                        if (_blogProvider.AddBlog(blog.Category, blog.Title, blog.Data, userName))
+                        {
+                            result.setSuccess(0, "Blog added.");
+                            TempData.Put("Result", result);
+                            return RedirectToAction("MyBlogs");
+                        }
+
+                    }else
+                    {
+                        //Adds the warning message to resultviewmodel. Need it for render the alert message to the user
+                        result.addWarningMessage("Blog content (5000) or title (120) max length has been exceed. Please check and try again.");
+                    }
+
+
+                }else
+                {
+                    //Adds the warning message to resultviewmodel. Need it for render the alert message to the user
+                    result.addWarningMessage("Blog information is incomplete. All fields are required, please check and try again.");
+                }
+
+                var sli = new List<SelectListItem>();
+
+                foreach (ICategory cat in _blogProvider.ListCategories())
+                {
+
+                    sli.Add(new SelectListItem
+                    {
+                        Text = cat.Name,
+                        Value = cat.Id.ToString(),
+                        Selected = false
+                    });
+                }
+
+                ViewBag.BlogCategories = sli;
+                ViewBag.Result = result;
+                return View(blog);
+                
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                result.setErrorMessage(ex.Message);
+                TempData.Put("Result", result);
+                return RedirectToAction("MyBlogs");
             }
         }
+        //-------------------------------------------------------------------------------------------------------------------------------------
 
-        // GET: BlogController/Edit/5
+        //2021-01-14 - Kadel D. Lacatt
+        //public ActionResult Create(IBlog blog)
+        //Handles GET requests for BlogController/Edit/[id]. Finds the blog by id a sends it back to the view
+        //Authorized for User with Writer role
+        //Returns A Render of the View Blog/Edit with the blog information using BlogViewModel
+        //on failed creation returns a redirect to MyBlogs action with model and resultviewmodel for rendering 
+        //alerts to the user
+        [Authorize(Roles = "Writer")]
+        [HttpGet]
         public ActionResult Edit(int id)
         {
-            return View();
+            ResultViewModel result = new ResultViewModel();
+            string userName = HttpContext.User.Identity.Name;
+            IBlog blog = _blogProvider.GetBlogForEdition(id, userName);
+
+            if (blog != null)
+            {
+
+                var sli = new List<SelectListItem>();
+
+                foreach (ICategory cat in _blogProvider.ListCategories())
+                {
+                    sli.Add(new SelectListItem
+                    {
+                        Text = cat.Name,
+                        Value = cat.Id.ToString()
+                    });
+                }
+
+                ViewBag.BlogCategories = sli;
+                return View(new BlogCreateViewModel()
+                {
+                     Id = blog.Id,
+                     Category = blog.Category,
+                     Data = blog.Data,
+                     Title = blog.Title
+                });
+
+            }
+            else
+            {
+                result.setErrorMessage("There was a problem loading the requested by the provided blog id. " +
+                                       "This probably caused by a status change or you are not the author of the entry" + 
+                                       "Please check your information, try again or contact support.");
+
+                TempData.Put("Result", result);
+                return RedirectToAction("MyBlogs");
+            }
         }
+        //-------------------------------------------------------------------------------------------------------------------------------------
 
         // POST: BlogController/Edit/5
+        [Authorize(Roles = "Writer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit([FromForm] BlogCreateViewModel blog)
         {
+            
+            ResultViewModel result = new ResultViewModel();
+            string userName = HttpContext.User.Identity.Name;
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                //Validate data received from the form.
+                if (!String.IsNullOrEmpty(blog.Title) && !String.IsNullOrEmpty(blog.Data))
+                {
+                    //Check length requirements and if the Id greater than cero
+                    if (blog.Data.Length <= 5000 && blog.Title.Length <= 120 && blog.Id > 0)
+                    {
+
+                        if (_blogProvider.SaveBlog(blog))
+                        {
+                            result.setSuccess(0, "Blog saved.");
+                            TempData.Put("Result", result);
+                            return RedirectToAction("MyBlogs");
+                        }
+
+                    }
+                    else
+                    {
+                        //Adds the warning message to resultviewmodel. Need it for render the alert message to the user
+                        result.addWarningMessage("Blog content (5000) or title (120) max length has been exceed. Please check and try again.");
+                    }
+                }
+                else
+                {
+                    //Adds the warning message to resultviewmodel. Need it for render the alert message to the user
+                    result.addWarningMessage("Blog information is incomplete. All fields are required, please check and try again.");
+                }
+
+                var sli = new List<SelectListItem>();
+
+                foreach (ICategory cat in _blogProvider.ListCategories())
+                {
+
+                    sli.Add(new SelectListItem
+                    {
+                        Text = cat.Name,
+                        Value = cat.Id.ToString(),
+                        Selected = false
+                    });
+                }
+
+                ViewBag.BlogCategories = sli;
+                ViewBag.Result = result;
+                return View(blog);
+
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                result.setErrorMessage(ex.Message);
+                TempData.Put("Result", result);
+                return RedirectToAction("MyBlogs");
             }
         }
-
-        // GET: BlogController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: BlogController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
 
         //2020-01-13 - Kadel D. Lacatt
         //public ActionResult Comment(IFormCollection collection)

@@ -11,7 +11,7 @@ using BlogifyWebApp.Models.Interfaces;
 
 namespace BlogifyWebApp.Models.Providers
 {
-    //2020-01-13 - Kadel D. Lacatt
+    //2021-01-13 - Kadel D. Lacatt
     //This class provides functions for CRUD of the Blog entities.
     public class BlogProvider: IBlogProvider
     {
@@ -32,7 +32,7 @@ namespace BlogifyWebApp.Models.Providers
             }
         }
 
-        //2020-01-13 - Kadel D. Lacatt
+        //2021-01-13 - Kadel D. Lacatt
         //Retrieve a list of blog categories stored on the db. Output: An IEnumerable of ICategory
         public IEnumerable<ICategory> ListCategories()
         {
@@ -51,7 +51,7 @@ namespace BlogifyWebApp.Models.Providers
 
         }
 
-        //2020-01-13 - Kadel D. Lacatt
+        //2021-01-13 - Kadel D. Lacatt
         //Retrieve a list of approved blog entries stored on the db. Input parameters is a nullable int category blog Id for filtering. 
         //Output: An IEnumerable of IBlog. 
         public IEnumerable<IBlog> ListBlogs(int? blogCategory)
@@ -79,7 +79,7 @@ namespace BlogifyWebApp.Models.Providers
             }
         }
 
-        //2020-01-13 - Kadel D. Lacatt
+        //2021-01-13 - Kadel D. Lacatt
         //Inserts in the db a new blog entry. Input IBlog with the new blog entry data. 
         //Output: Boolean with true if the transaction is successful, returns false otherwise. 
         bool IBlogProvider.AddBlog(IBlog pBlog)
@@ -87,10 +87,11 @@ namespace BlogifyWebApp.Models.Providers
             
             try
             {
+
                 db.Blogs.Add((Blog) pBlog);
                 db.SaveChanges();
-                
                 return true;
+
             }catch (Exception ex)
             {
                 _logger.LogError(GeneralHelper.GetMessageFromException(this.GetType().ToString(), ex));
@@ -99,7 +100,35 @@ namespace BlogifyWebApp.Models.Providers
 
         }
 
-        //2020-01-13 - Kadel D. Lacatt
+        //2021-01-13 - Kadel D. Lacatt
+        //Inserts in the db a new blog entry. 
+        //Input: int blogCategory, string blogTitle, string blogData, string authorUser
+        //Output: Boolean with true if the transaction is successful, returns false otherwise. 
+        bool IBlogProvider.AddBlog(int blogCategory, string blogTitle, string blogData, string authorUser)
+        {
+            try
+            {
+                db.Blogs.Add(new Blog
+                {
+                    Author = authorUser,
+                    Category = blogCategory,
+                    Created = DateTime.Now,
+                    Data = blogData,
+                    Title = blogTitle,
+                    Status  = GeneralHelper.PENDING_STATUS
+                });
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(GeneralHelper.GetMessageFromException(this.GetType().ToString(), ex));
+                return false;
+            }
+            
+        }
+
+        //2021-01-13 - Kadel D. Lacatt
         //Retrieve a blog entry from the db. Input int parameter with blog Id. 
         //Output: IBlog with the data of the required Blog.
         IBlog IBlogProvider.GetBlog(int blogId)
@@ -118,7 +147,27 @@ namespace BlogifyWebApp.Models.Providers
             
         }
 
-        //2020-01-13 - Kadel D. Lacatt
+        //2021-01-13 - Kadel D. Lacatt
+        //Retrieve a blog entry from the db for being edited, blog entry status must be 
+        //rejected for allowing edition. Input int parameter with blog Id. 
+        //Output: IBlog with the data of the required Blog.
+        IBlog IBlogProvider.GetBlogForEdition(int blogId, string userName)
+        {
+            try
+            {
+
+                return db.Blogs.Where(b => b.Id == blogId && b.Author.Trim() == userName.Trim() &&
+                                      b.Status == GeneralHelper.REJECTED_STATUS).SingleOrDefault();
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(GeneralHelper.GetMessageFromException(this.GetType().ToString(), ex));
+                return null;
+            }
+        }
+
+        //2021-01-13 - Kadel D. Lacatt
         //Updates a blog entry in the db. Input IBlog objecto with updated data of the blog.
         //Output: Boolean with true if transaction was a success, returns false otherwise.
         bool IBlogProvider.SaveBlog(IBlog blog)
@@ -133,6 +182,9 @@ namespace BlogifyWebApp.Models.Providers
                     dbBlog.Data = blog.Data;
                     dbBlog.Created = System.DateTime.Now;
                     dbBlog.Category = blog.Category;
+
+                    //Sets status back to pending so Editor users can check again
+                    dbBlog.Status = GeneralHelper.PENDING_STATUS; 
 
                     db.SaveChanges();
                     
@@ -150,7 +202,7 @@ namespace BlogifyWebApp.Models.Providers
             }
         }
 
-        //2020-01-13 - Kadel D. Lacatt
+        //2021-01-13 - Kadel D. Lacatt
         //Deletes a Blog from the db. Input: integer with the blog Id.
         //Output: Boolean with true if transaction was a success, returns false otherwise.
         bool IBlogProvider.DeleteBlog(int blogId)
@@ -175,7 +227,7 @@ namespace BlogifyWebApp.Models.Providers
             }
         }
 
-        //2020-01-13 - Kadel D. Lacatt
+        //2021-01-13 - Kadel D. Lacatt
         //Adds a comment to a Blog entry in db. Input: IComment with the data to be stored.
         //Output: Boolean with true if transaction was a success, returns false otherwise.
         bool IBlogProvider.AddComment(int blogId, string commentData, string commentAuthor)
@@ -198,7 +250,7 @@ namespace BlogifyWebApp.Models.Providers
             }
         }
 
-        //2020-01-13 - Kadel D. Lacatt
+        //2021-01-13 - Kadel D. Lacatt
         //Retrieve all the comments registered for certain blog id. Input: Integer with the blog id.
         //Output: IEnumerable of IComment with all the comments data
         IEnumerable<IComment> IBlogProvider.ListComments(int blogId)
@@ -216,7 +268,7 @@ namespace BlogifyWebApp.Models.Providers
 
         }
 
-        //2020-01-13 - Kadel D. Lacatt
+        //2021-01-13 - Kadel D. Lacatt
         //Retrieve a list of all blog entries stored on the db for a user. 
         //Input parameters is string username and nullable int category blog Id for filtering. 
         //Output: An IEnumerable of IBlog. 
