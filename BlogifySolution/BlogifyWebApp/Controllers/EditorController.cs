@@ -112,7 +112,7 @@ namespace BlogifyWebApp.Controllers
         {
 
             BlogDetailViewModel blogDetailVM = new BlogDetailViewModel();
-            blogDetailVM.blog = _blogProvider.GetBlog(id); //Obtains blog data.
+            blogDetailVM.blog = _blogProvider.GetPendingBlog(id); //Obtains blog data.
 
             //If this action is called by redirect from another action (BlogController.Comment)
             //Checks the TempData for fill the ViewBag.Result and render alerts on View(Details)
@@ -123,8 +123,7 @@ namespace BlogifyWebApp.Controllers
 
             if (blogDetailVM.blog != null)
             {
-                //If the blog exists, then we check for the comments.
-                blogDetailVM.comments = _blogProvider.ListComments(id);
+                //If the blog exists, returns the view
                 return View(blogDetailVM);
 
             }

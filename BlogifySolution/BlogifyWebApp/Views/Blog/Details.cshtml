@@ -17,8 +17,8 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-12" style="overflow-y: auto; height: 400px;">
-        @Model.blog.Data
+    <div class="col-12" style="overflow-y: auto; height: 600px;">
+        @Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.blog.Data))
     </div>
 </div>
 <hr />

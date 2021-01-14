@@ -176,6 +176,27 @@ namespace BlogifyWebApi.Models.Providers
             
         }
 
+        //2021-01-14 - Kadel D. Lacatt
+        //Retrieve a blog entry from the db with pending status. Input int parameter with blog Id. 
+        //Output: IBlog with the data of the required Blog.
+        IBlog IBlogProvider.GetPendingBlog(int blogId)
+        {
+
+            try
+            {
+
+                return db.Blogs.Where(b => b.Id == blogId && 
+                                           b.Status == GeneralHelper.PENDING_STATUS).SingleOrDefault();
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(GeneralHelper.GetMessageFromException(this.GetType().ToString(), ex));
+                return null;
+            }
+
+        }
+
         //2021-01-13 - Kadel D. Lacatt
         //Retrieve a blog entry from the db for being edited, blog entry status must be 
         //rejected for allowing edition. Input int parameter with blog Id. 

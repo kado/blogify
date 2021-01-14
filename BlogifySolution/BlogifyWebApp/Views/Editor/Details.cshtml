@@ -12,18 +12,18 @@
         <label asp-for="blog.Category" class="font-weight-bold"></label>
         <p>@Model.blog.Category</p>
     </div>
-    <div class="col-4 text-center"">
-        <label asp-for="blog.Author" class="font-weight-bold"></label>
+    <div class="col-4 text-center">
+        <label class="font-weight-bold">Author</label>
         <p>@Model.blog.Author</p>
     </div>
-    <div class="col-4 text-center"">
+    <div class="col-4 text-center">
         <label asp-for="blog.Created" class="font-weight-bold"></label>
         <p>@Model.blog.Created.ToString("yyyy-MM-dd HH:mm")</p>
     </div>
 </div>
 <div class="row">
     <div class="col-12" style="overflow-y: auto; height: 600px;">
-        @Model.blog.Data
+        @Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.blog.Data))
     </div>
 </div>
 <hr />

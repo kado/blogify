@@ -53,9 +53,18 @@ namespace BlogifyWebApi.Controllers
         //
         [Route("/Blog/{id}")]
         [HttpGet]
-        public IBlog GetBlog(int id) 
+        public IActionResult GetBlog(int id) 
         {
-            return _blogProvider.GetBlog(id);
+            IBlog blog = _blogProvider.GetPendingBlog(id); 
+            if (blog != null)
+            {
+                return Ok(blog);
+            }else
+            {
+                return NotFound();
+
+            }
+            
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
 
@@ -65,9 +74,6 @@ namespace BlogifyWebApi.Controllers
         [Route("/Blog/Approve/{id}")]
         public IActionResult Approve(int id, [FromBody]string userName)
         {
-
-            sResult result;
-            string jsonData = "";
 
             try
             {

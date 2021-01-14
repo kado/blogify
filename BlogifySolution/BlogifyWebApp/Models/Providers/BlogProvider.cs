@@ -116,7 +116,8 @@ namespace BlogifyWebApp.Models.Providers
             
             try
             {
-
+                //Encodes the content of the blog entry
+                pBlog.Data = System.Web.HttpUtility.HtmlEncode(pBlog.Data);
                 db.Blogs.Add((Blog) pBlog);
                 db.SaveChanges();
                 return true;
@@ -142,7 +143,7 @@ namespace BlogifyWebApp.Models.Providers
                     Author = authorUser,
                     Category = blogCategory,
                     Created = DateTime.Now,
-                    Data = blogData,
+                    Data = System.Web.HttpUtility.HtmlEncode(blogData),
                     Title = blogTitle,
                     Status  = GeneralHelper.PENDING_STATUS
                 });
@@ -176,6 +177,27 @@ namespace BlogifyWebApp.Models.Providers
             
         }
 
+        //2021-01-14 - Kadel D. Lacatt
+        //Retrieve a blog entry with pending status from the db. Input int parameter with blog Id. 
+        //Output: IBlog with the data of the required Blog.
+        IBlog IBlogProvider.GetPendingBlog(int blogId)
+        {
+
+            try
+            {
+
+                return db.Blogs.Where(b => b.Id == blogId && 
+                                      b.Status == GeneralHelper.PENDING_STATUS)
+                                .SingleOrDefault();
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(GeneralHelper.GetMessageFromException(this.GetType().ToString(), ex));
+                return null;
+            }
+
+        }
         //2021-01-13 - Kadel D. Lacatt
         //Retrieve a blog entry from the db for being edited, blog entry status must be 
         //rejected for allowing edition. Input int parameter with blog Id. 
@@ -208,7 +230,7 @@ namespace BlogifyWebApp.Models.Providers
                 if (dbBlog != null)
                 {
                     dbBlog.Title = blog.Title;
-                    dbBlog.Data = blog.Data;
+                    dbBlog.Data = System.Web.HttpUtility.HtmlEncode(blog.Data);
                     dbBlog.Created = System.DateTime.Now;
                     dbBlog.Category = blog.Category;
 

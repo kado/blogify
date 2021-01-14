@@ -18,6 +18,7 @@ namespace BlogifyWebApi.Models.Interfaces
         public bool AddBlog(IBlog blog);
         public bool AddBlog(int blogCategory, string blogTitle, string blogData, string autorUser);
         public IBlog GetBlog(int blogId);
+        public IBlog GetPendingBlog(int blogId);
         public IBlog GetBlogForEdition(int blogId, string userName);
         public bool SaveBlog(IBlog blog);
         public bool DeleteBlog(int blogId);

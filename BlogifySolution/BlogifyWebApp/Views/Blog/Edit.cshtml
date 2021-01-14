@@ -12,7 +12,7 @@
     <div class="col-12">
         <form asp-action="Edit" asp-controller="Blog">
             @Html.AntiForgeryToken()
-            <input type="hidden" asp-for="Id"  />
+            <input type="hidden" asp-for="Id" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Category" class="control-label"></label>
@@ -26,7 +26,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Data" class="control-label"></label>
-                <textarea asp-for="Data" class="form-control"></textarea>
+                <textarea id="editor" asp-for="Data" class="form-control"></textarea>
                 <span asp-validation-for="Data" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -47,4 +47,17 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <link rel="stylesheet" href="~/css/highlight.min.css" />
+    <link rel="stylesheet" href="~/css/wysiwyg.min.css" />
+
+    <script src="~/js/highlight.min.js"></script>
+    <script src="~/js/wysiwyg.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#editor').wysiwyg();
+        });
+    </script>
+
 }
