@@ -52,7 +52,6 @@ namespace BlogifyWebApp.Models.Providers
                 {
                     if (user.Password.Trim() == password)
                     {
-                        //set identity
                         return true;
                     }else
                     {

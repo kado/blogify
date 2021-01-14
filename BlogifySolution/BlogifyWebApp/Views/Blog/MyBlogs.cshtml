@@ -4,14 +4,14 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Blogs</h1>
+    <h1 class="display-4">My Blogs</h1>
 </div>
 
 <!-- Renders a partial view with a bootstrap alert, showing information to the user -->
 <partial name="_ResultAlert" model="(BlogifyWebApp.Models.ResultViewModel) ViewBag.Result" />
 
 <form asp-action="Index" asp-controller="Blog" class="form-horizontal">
-    
+
     <div class="row">
         <div class="col-4">
             <div class="form-group form-group-sm">
@@ -31,7 +31,7 @@
         {
             if (User.IsInRole("Writer"))
             {
-                <div class="col-2">
+                <div class="col-2 text-right">
                     <a asp-action="Create" asp-controller="Blog" class="btn btn-success">Add New</a>
                 </div>
             }
@@ -40,7 +40,7 @@
     </div>
 
     @Html.AntiForgeryToken()
-    
+
 </form>
 <div class="row">
     <div class="col-12">
@@ -50,7 +50,7 @@
                     <th>Commands</th>
                     <th>Title</th>
                     <th>Created</th>
-                    <th>Author</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -65,10 +65,22 @@
                                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-primary">
                                         <i class="fa fa-search"></i>
                                     </a>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        if (User.IsInRole("Writer"))
+                                        {
+                                            if (item.Status.Trim() == BlogifyWebApp.Models.Helpers.GeneralHelper.REJECTED_STATUS)
+                                            {
+                                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-success">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            }
+                                        }
+                                    }
                                 </td>
                                 <td>@item.Title</td>
                                 <td>@item.Created.ToString("yyyy-MM-dd HH:MM")</td>
-                                <td>@item.Author</td>
+                                <td>@BlogifyWebApp.Models.Helpers.GeneralHelper.STATUSNAMES[@item.Status]</td>
                             </tr>
                         }
                     }

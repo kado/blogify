@@ -434,3 +434,5 @@ C:\Working\blogify\BlogifySolution\BlogifyWebApp\bin\Debug\net5.0\runtimes\win-a
 C:\Working\blogify\BlogifySolution\BlogifyWebApp\obj\Debug\net5.0\Razor\Views\Blog\Details.cshtml.g.cs
 C:\Working\blogify\BlogifySolution\BlogifyWebApp\obj\Debug\net5.0\Razor\Views\Shared\_ResultAlert.cshtml.g.cs
 C:\Working\blogify\BlogifySolution\BlogifyWebApp\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs
+C:\Working\blogify\BlogifySolution\BlogifyWebApp\obj\Debug\net5.0\Razor\Views\Blog\MyBlogs.cshtml.g.cs
+C:\Working\blogify\BlogifySolution\BlogifyWebApp\obj\Debug\net5.0\Razor\Views\Blog\Create.cshtml.g.cs

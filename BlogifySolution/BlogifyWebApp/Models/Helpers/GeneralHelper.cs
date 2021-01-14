@@ -12,6 +12,15 @@ namespace BlogifyWebApp.Models.Helpers
         public static string PENDING_STATUS = "P";
         public static string REJECTED_STATUS = "R";
         public static string ANONYMOUS_DEFAULT_USERNAME = "Anonymous";
+
+        public static string WRITER_ROLENAME = "Writer";
+        public static string EDITOR_ROLENAME = "Editor";
+
+        public static Dictionary<string, string> STATUSNAMES = new Dictionary<string, string>() {
+            {"A","APPROVED"},
+            {"P","PENDING"},
+            {"R","REJECTED"}
+        };
         public static string GetMessageFromException(string Origin, Exception pEx)
         {
 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 using BlogifyWebApp.Models;
 using BlogifyWebApp.Models.Interfaces;
@@ -16,12 +17,20 @@ namespace BlogifyWebApp.Controllers
     {
 
         private readonly IBlogProvider _blogProvider;
+
+        //2020-01-13 - Kadel D. Lacatt
+        //public BlogController(IBlogProvider blogProvider)
+        //Controller constructor, input parameters is DI for IBlogProvider and BloProvider
         public BlogController(IBlogProvider blogProvider)
         {
             _blogProvider = blogProvider;
         }
-        
-        
+        //-------------------------------------------------------------------------------------------------------------------------------------
+
+        //2020-01-13 - Kadel D. Lacatt
+        //public ActionResult Index()
+        //Handles GET verb requests, returns ListBlogViewModel with a list a blogs from db.
+        //Renders Index View
         [HttpGet]
         public ActionResult Index()
         {
@@ -49,7 +58,13 @@ namespace BlogifyWebApp.Controllers
             return View(listBlogVM);
             
         }
+        //-------------------------------------------------------------------------------------------------------------------------------------
 
+        //2020-01-13 - Kadel D. Lacatt
+        //public ActionResult Index()
+        //Handles POST verb requests, as input parameters receives a category blog id selected on UI
+        //to filter blog list results. Returns ListBlogViewModel with a list a blogs from db.
+        //Renders Index View
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index(string categoryId)
@@ -57,10 +72,7 @@ namespace BlogifyWebApp.Controllers
             ListBlogViewModel listBlogVM = new ListBlogViewModel();
             var sli = new List<SelectListItem>();
 
-            if (categoryId=="") {
-                sli.Add(new SelectListItem { Text = "[CATEGORY]", Value = "", Selected = true });
-            }
-
+            sli.Add(new SelectListItem { Text = "[CATEGORY]", Value = "", Selected = (categoryId == "") });
            
             foreach (ICategory cat in _blogProvider.ListCategories())
             {
@@ -80,8 +92,110 @@ namespace BlogifyWebApp.Controllers
             return View(listBlogVM);
 
          }
+        //-------------------------------------------------------------------------------------------------------------------------------------
 
-        // GET: BlogController/Details/5
+        //2020-01-13 - Kadel D. Lacatt
+        //public ActionResult MyBlogs()
+        //Handles GET verb requests, only for authenticated users with role Writer
+        //obtains the authenticated username from context and selects all blogs from the user
+        //Returns ListBlogViewModel with a list a blogs from db.
+        //Renders Index View
+        [Authorize]
+        [HttpGet]
+        public ActionResult MyBlogs()
+        {
+            ListBlogViewModel listBlogVM = new ListBlogViewModel();
+            string userName;
+
+            //Check if the user is authenticated and then obtain username to 
+            //do the data retrieval
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                userName = HttpContext.User.Identity.Name;
+            }else
+            {
+                return Unauthorized();
+            }
+
+            //Check the user role is writer
+            if (!HttpContext.User.IsInRole(GeneralHelper.WRITER_ROLENAME))
+            {
+                return Unauthorized();
+            }
+
+
+            var sli = new List<SelectListItem>();
+
+
+            sli.Add(new SelectListItem { Text = "[CATEGORY]", Value = "", Selected = true });
+            foreach (ICategory cat in _blogProvider.ListCategories())
+            {
+                sli.Add(new SelectListItem { Text = cat.Name, Value = cat.Id.ToString(), Selected = false });
+            }
+
+            listBlogVM.BlogCategories = sli;
+            listBlogVM.BlogEntries = _blogProvider.ListMyBlogs(userName,null);
+
+            //If this action is called by redirect from another action (BlogController.Create, BlogController.Edit, 
+            //BlogController.Details or BlogController.Delete). Checks the TempData for fill the ViewBag.Result and 
+            //render alerts on the returned View
+            if (TempData["Result"] != null)
+            {
+                ViewBag.Result = TempData.Get<ResultViewModel>("Result");
+            }
+
+            return View(listBlogVM);
+        }
+        //-------------------------------------------------------------------------------------------------------------------------------------
+
+        //2020-01-13 - Kadel D. Lacatt
+        //public ActionResult MyBlogs()
+        //Handles POST verb requests, only for authenticated users with role Writer.
+        //Obtains the authenticated username from context and selects all blogs from the user
+        //It also receives a categoryId selected from the UI for an additional filter.
+        //Returns ListBlogViewModel with a list a blogs from db.
+        //Renders Index View
+        [Authorize(Roles = "Writer")]
+        [HttpPost]
+        public ActionResult MyBlogs(string categoryId)
+        {
+            ListBlogViewModel listBlogVM = new ListBlogViewModel();
+            string userName = HttpContext.User.Identity.Name;
+
+            //Check the user role is writer
+            if (!HttpContext.User.Identity.IsAuthenticated ||
+                !HttpContext.User.IsInRole(GeneralHelper.WRITER_ROLENAME))
+            {
+                return Unauthorized();
+            }
+            
+            var sli = new List<SelectListItem>();
+            sli.Add(new SelectListItem { Text = "[CATEGORY]", Value = "", Selected = (categoryId == "") });
+
+            foreach (ICategory cat in _blogProvider.ListCategories())
+            {
+
+                sli.Add(new SelectListItem
+                {
+                    Text = cat.Name,
+                    Value = cat.Id.ToString(),
+                    Selected = (cat.Id.ToString() == categoryId)
+                });
+            }
+
+            listBlogVM.BlogCategories = sli;
+            listBlogVM.BlogEntries = _blogProvider.ListMyBlogs(userName, (categoryId == "" ? null : int.Parse(categoryId)));
+            return View(listBlogVM);
+
+        }
+        //-------------------------------------------------------------------------------------------------------------------------------------
+
+        //2020-01-13 - Kadel D. Lacatt
+        //public ActionResult MyBlogs()
+        //Handles GET verb requests. Obtains data from one blog entry a its comments with a given blog id.
+        //Returns BlogDetailViewModel blog entry information and its comments.
+        //Renders Details View
+        // GET: BlogController/Details/id
         public ActionResult Details(int id)
         {
 
@@ -112,10 +226,32 @@ namespace BlogifyWebApp.Controllers
             }
             
         }
+        //-------------------------------------------------------------------------------------------------------------------------------------
 
+
+        [Authorize]
+        [HttpGet]
         // GET: BlogController/Create
         public ActionResult Create()
         {
+
+
+            var sli = new List<SelectListItem>();
+            sli.Add(new SelectListItem { Text = "[CATEGORY]", Value = "", Selected = false });
+
+            foreach (ICategory cat in _blogProvider.ListCategories())
+            {
+
+                sli.Add(new SelectListItem
+                {
+                    Text = cat.Name,
+                    Value = cat.Id.ToString(),
+                    Selected = false
+                });
+            }
+
+            ViewBag.BlogCategories = sli;
+
             return View();
         }
 

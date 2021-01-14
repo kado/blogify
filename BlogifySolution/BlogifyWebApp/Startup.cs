@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 
 namespace BlogifyWebApp
 {
@@ -26,12 +28,20 @@ namespace BlogifyWebApp
             //2020-01-13 - Kadel D. Lacatt
             //.NET Core DI services registration
             services.AddScoped<BlogifyWebApp.Models.Interfaces.IBlogProvider, BlogifyWebApp.Models.Providers.BlogProvider>();
+            services.AddScoped<BlogifyWebApp.Models.Interfaces.IAuthProvider, BlogifyWebApp.Models.Providers.AuthProvider>();
             services.AddScoped<BlogifyWebApp.Models.Interfaces.IBlog, BlogifyWebApp.Models.EF.Blog>();
             services.AddScoped<BlogifyWebApp.Models.Interfaces.ICategory, BlogifyWebApp.Models.EF.Category>();
             services.AddScoped<BlogifyWebApp.Models.Interfaces.IUser, BlogifyWebApp.Models.EF.User>();
             services.AddScoped<BlogifyWebApp.Models.Interfaces.IComment, BlogifyWebApp.Models.EF.Comment>();
 
             services.AddControllersWithViews();
+
+            //Register and Create the authentication Middleware
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => 
+                { 
+                    //...
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,7 +62,17 @@ namespace BlogifyWebApp
 
             app.UseRouting();
 
+            //Configuring the use of authentication and authorization for the app.
+            app.UseAuthentication();
             app.UseAuthorization();
+            
+            //Setting up cookie policy for authentications
+            var cookiePolicyOptions = new CookiePolicyOptions
+            {
+                MinimumSameSitePolicy = SameSiteMode.Strict,
+            };
+            app.UseCookiePolicy(cookiePolicyOptions);
+
 
             app.UseEndpoints(endpoints =>
             {

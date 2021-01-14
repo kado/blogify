@@ -20,6 +20,9 @@ namespace BlogifyWebApp.Models.Interfaces
         public bool DeleteBlog(int blogId);
         public bool AddComment(int blogId, string commentData, string commentAuthor);
         public IEnumerable<IComment> ListComments(int blogId);
+
+        public IEnumerable<IBlog> ListMyBlogs(string username, int? blogCategory);
+
         
     }
 }

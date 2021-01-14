@@ -198,6 +198,9 @@ namespace BlogifyWebApp.Models.Providers
             }
         }
 
+        //2020-01-13 - Kadel D. Lacatt
+        //Retrieve all the comments registered for certain blog id. Input: Integer with the blog id.
+        //Output: IEnumerable of IComment with all the comments data
         IEnumerable<IComment> IBlogProvider.ListComments(int blogId)
         {
             try
@@ -211,6 +214,35 @@ namespace BlogifyWebApp.Models.Providers
                 return null;
             }
 
+        }
+
+        //2020-01-13 - Kadel D. Lacatt
+        //Retrieve a list of all blog entries stored on the db for a user. 
+        //Input parameters is string username and nullable int category blog Id for filtering. 
+        //Output: An IEnumerable of IBlog. 
+        IEnumerable<IBlog> IBlogProvider.ListMyBlogs(string username, int? blogCategory)
+        {
+            try
+            {
+                if (blogCategory != null)
+                {
+                    return db.Blogs.Where(b => b.Category == blogCategory &&
+                                               b.Author.Trim() == username.Trim())
+                                   .OrderBy(b => b.Created)
+                                   .ToList();
+                }
+                else
+                {
+                    return db.Blogs.Where(b => b.Author.Trim() == username.Trim())
+                                   .OrderBy(b => b.Created)
+                                   .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(GeneralHelper.GetMessageFromException(this.GetType().ToString(), ex));
+                return null;
+            }
         }
         
     }
