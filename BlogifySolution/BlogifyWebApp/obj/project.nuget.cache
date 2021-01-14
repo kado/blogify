@@ -1,10 +1,9 @@
 {
   "version": 2,
-  "dgSpecHash": "sF+9wfQL+WIC0QSz5Vhc4/hFo6OLR41ffvELyb72+b2pM6l6UaXza97kITaxXkx80OzuWEnvm3VYaLMrrOorzg==",
+  "dgSpecHash": "g7EXrwZBi1hg88m6pNcOoqlm4trdwt+m8hDLw+QIErg8bf5EeWvhEuEIns9yrsOGaHOJ7wBSXmA/KcwvCChFWA==",
   "success": true,
   "projectFilePath": "C:\\Working\\blogify\\BlogifySolution\\BlogifyWebApp\\BlogifyWebApp.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\klacatt.INTRACARGASA\\.nuget\\packages\\autofac\\6.1.0\\autofac.6.1.0.nupkg.sha512",
     "C:\\Users\\klacatt.INTRACARGASA\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\klacatt.INTRACARGASA\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\klacatt.INTRACARGASA\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.extensions\\5.0.2\\microsoft.aspnetcore.mvc.razor.extensions.5.0.2.nupkg.sha512",

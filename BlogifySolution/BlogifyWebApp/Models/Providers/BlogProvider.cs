@@ -79,6 +79,35 @@ namespace BlogifyWebApp.Models.Providers
             }
         }
 
+        //2021-01-14 - Kadel D. Lacatt
+        //Retrieve a list of pending for approval blog entries stored on the db. 
+        //Input parameters is a nullable int category blog Id for filtering. 
+        //Output: An IEnumerable of IBlog. 
+        public IEnumerable<IBlog> ListPendingBlogs(int? blogCategory)
+        {
+            try
+            {
+                if (blogCategory != null)
+                {
+                    return db.Blogs.Where(b => b.Category == blogCategory &&
+                                               b.Status == GeneralHelper.PENDING_STATUS)
+                                   .OrderBy(b => b.Created)
+                                   .ToList();
+                }
+                else
+                {
+                    return db.Blogs.Where(b => b.Status == GeneralHelper.PENDING_STATUS)
+                                   .OrderBy(b => b.Created)
+                                   .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(GeneralHelper.GetMessageFromException(this.GetType().ToString(), ex));
+                return null;
+            }
+        }
+
         //2021-01-13 - Kadel D. Lacatt
         //Inserts in the db a new blog entry. Input IBlog with the new blog entry data. 
         //Output: Boolean with true if the transaction is successful, returns false otherwise. 
@@ -270,7 +299,7 @@ namespace BlogifyWebApp.Models.Providers
 
         //2021-01-13 - Kadel D. Lacatt
         //Retrieve a list of all blog entries stored on the db for a user. 
-        //Input parameters is string username and nullable int category blog Id for filtering. 
+        //Input parameters are string username and nullable int category blog Id for filtering. 
         //Output: An IEnumerable of IBlog. 
         IEnumerable<IBlog> IBlogProvider.ListMyBlogs(string username, int? blogCategory)
         {
@@ -296,6 +325,41 @@ namespace BlogifyWebApp.Models.Providers
                 return null;
             }
         }
-        
+
+        //2021-01-14 - Kadel D. Lacatt
+        //Uptades the blog status field for whatever is pass in status input parameter.
+        //Input parameters are integer with blog Id, string with status to be set and
+        //string with editor's username
+        //Output: Boolean with true if transaction was successful, otherwise return false
+        bool IBlogProvider.SetStatusTo(int blogId, string status, string editorUser)
+        {
+            try
+            {
+                Blog dbBlog = db.Blogs.Where(b => b.Id == blogId).SingleOrDefault();
+
+                if (dbBlog != null)
+                {
+                    //Sets status back to pending so Editor users can check again
+                    dbBlog.Status = status;
+                    dbBlog.Editor = editorUser;
+                    dbBlog.Edited = System.DateTime.Now;
+                    db.SaveChanges();
+
+                    return true;
+
+                }
+                else
+                {
+                    throw new Exception("Blog entry does not exist. Please check your data and try again or contact support.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(GeneralHelper.GetMessageFromException(this.GetType().ToString(), ex));
+                return false;
+            }
+        }
+
     }
 }

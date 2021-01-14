@@ -18,7 +18,7 @@ namespace BlogifyWebApp.Controllers
 
         private readonly IBlogProvider _blogProvider;
 
-        //2020-01-13 - Kadel D. Lacatt
+        //2021-01-13 - Kadel D. Lacatt
         //public BlogController(IBlogProvider blogProvider)
         //Controller constructor, input parameters is DI for IBlogProvider and BloProvider
         public BlogController(IBlogProvider blogProvider)
@@ -27,7 +27,7 @@ namespace BlogifyWebApp.Controllers
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
 
-        //2020-01-13 - Kadel D. Lacatt
+        //2021-01-13 - Kadel D. Lacatt
         //public ActionResult Index()
         //Handles GET verb requests, returns ListBlogViewModel with a list a blogs from db.
         //Renders Index View
@@ -60,7 +60,7 @@ namespace BlogifyWebApp.Controllers
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
 
-        //2020-01-13 - Kadel D. Lacatt
+        //2021-01-13 - Kadel D. Lacatt
         //public ActionResult Index()
         //Handles POST verb requests, as input parameters receives a category blog id selected on UI
         //to filter blog list results. Returns ListBlogViewModel with a list a blogs from db.
@@ -101,7 +101,7 @@ namespace BlogifyWebApp.Controllers
          }
         //-------------------------------------------------------------------------------------------------------------------------------------
 
-        //2020-01-13 - Kadel D. Lacatt
+        //2021-01-13 - Kadel D. Lacatt
         //public ActionResult MyBlogs()
         //Handles GET verb requests, only for authenticated users with role Writer
         //obtains the authenticated username from context and selects all blogs from the user
@@ -155,7 +155,7 @@ namespace BlogifyWebApp.Controllers
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
 
-        //2020-01-13 - Kadel D. Lacatt
+        //2021-01-13 - Kadel D. Lacatt
         //public ActionResult MyBlogs()
         //Handles POST verb requests, only for authenticated users with role Writer.
         //Obtains the authenticated username from context and selects all blogs from the user
@@ -206,8 +206,8 @@ namespace BlogifyWebApp.Controllers
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
 
-        //2020-01-13 - Kadel D. Lacatt
-        //public ActionResult MyBlogs()
+        //2021-01-13 - Kadel D. Lacatt
+        //public ActionResult Details()
         //Handles GET verb requests. Obtains data from one blog entry a its comments with a given blog id.
         //Returns BlogDetailViewModel blog entry information and its comments.
         //Renders Details View
@@ -460,7 +460,7 @@ namespace BlogifyWebApp.Controllers
             }
         }
 
-        //2020-01-13 - Kadel D. Lacatt
+        //2021-01-13 - Kadel D. Lacatt
         //public ActionResult Comment(IFormCollection collection)
         //Action that handles the request for adding a comment to a blog. 
         //Recevives a IFormCollection with posted form data. 

@@ -1,0 +1,85 @@
+﻿@model BlogifyWebApp.Models.ListBlogViewModel
+@{
+    ViewData["Title"] = "Blogs Pending for Approval";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Blogs Pending for Approval</h1>
+</div>
+
+<!-- Renders a partial view with a bootstrap alert, showing information to the user -->
+<partial name="_ResultAlert" model="(BlogifyWebApp.Models.ResultViewModel) ViewBag.Result" />
+
+<form asp-action="Index" asp-controller="Blog" class="form-horizontal">
+
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group form-group-sm">
+                <select asp-for="categoryId" asp-items="Model.BlogCategories" class="form-control"></select>
+            </div>
+        </div>
+        <div class="col-3">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-search"></i>
+                Buscar
+            </button>
+        </div>
+        <div class="col-3">
+        </div>
+    </div>
+
+    @Html.AntiForgeryToken()
+
+</form>
+<div class="row">
+    <div class="col-12">
+        <table class="table table-sm table-condensed table-striped">
+            <thead>
+                <tr>
+                    <th>Commands</th>
+                    <th>Title</th>
+                    <th>Created</th>
+                    <th>Author</th>
+                    <th>Last Edited</th>
+                    <th>Editor</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.BlogEntries != null)
+                {
+                    if (Model.BlogEntries.Count() > 0)
+                    {
+                        @foreach (BlogifyWebApp.Models.EF.Blog item in Model.BlogEntries)
+                        {
+                            <tr>
+                                <td>
+                                    <a asp-action="Details" asp-controller="Editor" asp-route-id="@item.Id" class="btn btn-sm btn-primary">
+                                        <i class="fa fa-search"></i>
+                                    </a>
+                                </td>
+                                <td>@item.Title</td>
+                                <td>@item.Created.ToString("yyyy-MM-dd HH:MM")</td>
+                                <td>@item.Author</td>
+                                <td>
+                                    @if (item.Edited != null)
+                                    {
+                                        @item.Edited.GetValueOrDefault().ToString("yyyy-MM-dd HH:MM")
+                                    }
+                                </td>
+                                <td>@item.Editor</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr><td colspan="6">No entries found</td></tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="4">There were some problems retreiving Blogs, please contact support.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

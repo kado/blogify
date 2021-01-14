@@ -45,10 +45,6 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
-            "Autofac": {
-              "target": "Package",
-              "version": "[6.1.0, )"
-            },
             "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
               "target": "Package",
               "version": "[5.0.2, )"

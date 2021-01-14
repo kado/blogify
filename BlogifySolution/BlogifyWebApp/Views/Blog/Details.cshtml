@@ -2,17 +2,47 @@
 @{
     ViewData["Title"] = ViewBag.BlogTitle;
 }
+<!-- Renders a partial view with a bootstrap alert, showing information to the user -->
+<partial name="_ResultAlert" model="(BlogifyWebApp.Models.ResultViewModel) ViewBag.Result" />
 <h1>@Model.blog.Title</h1>
-
+<hr />
+<div class="row">
+    <div class="col-6 text-center">
+        <label asp-for="blog.Author" class="font-weight-bold"></label>
+        <p>@Model.blog.Author</p>
+    </div>
+    <div class="col-4 text-center">
+        <label class="font-weight-bold">Published</label>
+        <p>@Model.blog.Edited.GetValueOrDefault().ToString("yyyy-MM-dd HH:mm")</p>
+    </div>
+</div>
 <div class="row">
     <div class="col-12" style="overflow-y: auto; height: 400px;">
         @Model.blog.Data
     </div>
 </div>
-<h3>Comments</h3>
-<!-- Renders a partial view with a bootstrap alert, showing information to the user -->
-<partial name="_ResultAlert" model="(BlogifyWebApp.Models.ResultViewModel) ViewBag.Result" />
+<hr />
+<div class="row">
+    <div class="col-12 text-center">
+        @if (User.Identity.IsAuthenticated)
+        {
+            @if (User.IsInRole(BlogifyWebApp.Models.Helpers.GeneralHelper.EDITOR_ROLENAME))
+            {
+                <h5>Editor Special Commands</h5>
+                <form asp-controller="Editor" asp-action="DeleteFromBrowse">
+                    @Html.AntiForgeryToken()
+                    <input name="id" type="hidden" value="@Model.blog.Id" />
+                    <button type="submit" class="btn btn-danger btn-lg mt-5" onclick="return confirm('Are you sure to delete this post?');">
+                        <i class="fa fa-trash"></i> Delete
+                    </button>
+                </form>
+                <hr />
+            }
+        }
+    </div>
+</div>
 
+<h3>Comments</h3>
 <div class="card">
     <div class="card-header border-bottom">
         <h3>What users are saying about this</h3>

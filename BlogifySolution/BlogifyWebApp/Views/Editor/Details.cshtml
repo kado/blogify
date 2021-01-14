@@ -1,0 +1,60 @@
+﻿@model BlogifyWebApp.Models.BlogDetailViewModel
+@{
+    ViewData["Title"] = ViewBag.BlogTitle;
+}
+<!-- Renders a partial view with a bootstrap alert, showing information to the user -->
+<partial name="_ResultAlert" model="(BlogifyWebApp.Models.ResultViewModel) ViewBag.Result" />
+
+<h1>@Model.blog.Title</h1>
+<hr />
+<div class="row">
+    <div class="col-4 text-center">
+        <label asp-for="blog.Category" class="font-weight-bold"></label>
+        <p>@Model.blog.Category</p>
+    </div>
+    <div class="col-4 text-center"">
+        <label asp-for="blog.Author" class="font-weight-bold"></label>
+        <p>@Model.blog.Author</p>
+    </div>
+    <div class="col-4 text-center"">
+        <label asp-for="blog.Created" class="font-weight-bold"></label>
+        <p>@Model.blog.Created.ToString("yyyy-MM-dd HH:mm")</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12" style="overflow-y: auto; height: 600px;">
+        @Model.blog.Data
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-4 text-center">
+        <form asp-controller="Editor" asp-action="Approve">
+            @Html.AntiForgeryToken()
+            <input name="id" type="hidden" value="@Model.blog.Id" />
+            <button type="submit" class="btn btn-success btn-lg mt-5">
+                <i class="fa fa-check"></i> Approve
+            </button>
+
+        </form>
+    </div>
+    <div class="col-4 text-center">
+        <form asp-controller="Editor" asp-action="Reject">
+            @Html.AntiForgeryToken()
+            <input name="id" type="hidden" value="@Model.blog.Id" />
+            <button type="submit" class="btn btn-warning btn-lg mt-5">
+                <i class="fa fa-close"></i> Reject
+            </button>
+        </form>
+    </div>
+    <div class="col-4 text-center">
+        <form asp-controller="Editor" asp-action="Delete">
+            @Html.AntiForgeryToken()
+            <input name="id" type="hidden" value="@Model.blog.Id" />
+            <button type="submit" class="btn btn-danger btn-lg mt-5" onclick="return confirm('Are you sure to delete this post?');">
+                <i class="fa fa-trash"></i> Delete
+            </button>
+        </form>
+    </div>
+</div>
+

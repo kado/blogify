@@ -25,7 +25,7 @@ namespace BlogifyWebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //2020-01-13 - Kadel D. Lacatt
+            //2021-01-13 - Kadel D. Lacatt
             //.NET Core DI services registration
             services.AddScoped<BlogifyWebApp.Models.Interfaces.IBlogProvider, BlogifyWebApp.Models.Providers.BlogProvider>();
             services.AddScoped<BlogifyWebApp.Models.Interfaces.IAuthProvider, BlogifyWebApp.Models.Providers.AuthProvider>();
@@ -38,10 +38,7 @@ namespace BlogifyWebApp
 
             //Register and Create the authentication Middleware
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options => 
-                { 
-                    //...
-                });
+                    .AddCookie(options => {});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
