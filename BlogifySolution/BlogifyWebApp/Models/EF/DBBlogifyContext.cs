@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-
+using Microsoft.Extensions.Configuration;
 #nullable disable
 
 namespace BlogifyWebApp.Models.EF
@@ -10,9 +10,11 @@ namespace BlogifyWebApp.Models.EF
     //DBContext for accesing to the database
     public partial class DBBlogifyContext : DbContext
     {
+
         
         public DBBlogifyContext()
         {
+            
         }
 
         public DBBlogifyContext(DbContextOptions<DBBlogifyContext> options)
@@ -29,7 +31,16 @@ namespace BlogifyWebApp.Models.EF
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=localhost;Database=DBBlogify;Trusted_Connection=True;");
+                //2021-01-14 Kadel Lacatt
+                //Connectionstring moved to appsettings.json
+                IConfigurationRoot _configuration = new ConfigurationBuilder()
+                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+
+                optionsBuilder.UseSqlServer(
+                    _configuration.GetConnectionString("BlogifyCnnStr")
+                );
             }
         }
 
