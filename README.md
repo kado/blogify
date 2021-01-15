@@ -25,7 +25,8 @@ Microsoft.EntityFrameworkCore Version 5.0.2
 Microsoft.EntityFrameworkCore.SqlServer Version 5.0.2
 Microsoft.EntityFrameworkCore.Tools Version 5.0.2
 
-Connections Strings must in appsettings.json
+##Connections Strings 
+The connection string is in appsettings.json, must be changed in order run the project:
 ```json
   "ConnectionStrings": {
     "BlogifyCnnStr": "Server=localhost;Database=DBBlogify;Trusted_Connection=True;"
@@ -122,7 +123,8 @@ OutPut: Implements IActionResult returning 200 status code success.
 		Returns  Bad Request if the blog id is invalid or if an exception is thrown.
 
 
-Connections Strings is in appsettings.json, must be changed in order run project:
+##Connections Strings 
+The connection string is in appsettings.json, must be changed in order run the project:
 ```json
   "ConnectionStrings": {
     "BlogifyCnnStr": "Server=localhost;Database=DBBlogify;Trusted_Connection=True;"
