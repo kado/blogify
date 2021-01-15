@@ -147,10 +147,21 @@ The connection string is in appsettings.json, must be changed in order run the p
 
 [Test API Usage](http://blogify.southcentralus.cloudapp.azure.com/webapi)
 
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+## Deploy on Windows Server
+Deployment instrucctions:
 
-Please make sure to update tests as appropriate.
+- Download and install [SQL Server 2019 Express Edition][https://www.microsoft.com/en-us/download/details.aspx?id=101064]
+- Execute Script DBBlogify.sql to create the database and sample data (Users, Categories, etc.).
+- Check if Web Server Role is installed on Windows Server, if it's not then follow this [tutorial][https://docs.microsoft.com/en-us/iis/web-hosting/web-server-for-shared-hosting/installing-the-web-server-role] for set it up.
+- Download and install [.NET Core 5 Hosting Bundle for Windows][https://dotnet.microsoft.com/download/dotnet/5.0]
+- Open IIS Service Manager (Windows Administrative Tools >> Internet Information Services (IIS) Manager).
+  go to Application pools and create two new app pools: Name = (NetCoreAppPool1 |NetCoreAppPool2) // .NET CLR version = No Managed Code. Click OK.
+- Go to Windows Explorer and create the folder where you want to stored the applications files. For Example: C:\\MyApps\WebApp\. Put your application package in these locations
+- In IIS Service Manager, under Sites and then under Default Web Site. Right click and select Add Application option.
+- Set the alias for the application, choose one of the recently created NetCoreAppPool and then select the physical path you created for storing app's files. Click OK.
+- Check appsettings.json for customizing the connection strings.
+- Enjoy
+
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
