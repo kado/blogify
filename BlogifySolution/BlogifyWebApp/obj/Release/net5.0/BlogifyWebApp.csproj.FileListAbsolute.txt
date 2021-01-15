@@ -437,3 +437,4 @@ C:\Working\blogify\BlogifySolution\BlogifyWebApp\obj\Release\net5.0\BlogifyWebAp
 C:\Working\blogify\BlogifySolution\BlogifyWebApp\obj\Release\net5.0\ref\BlogifyWebApp.dll
 C:\Working\blogify\BlogifySolution\BlogifyWebApp\obj\Release\net5.0\BlogifyWebApp.pdb
 C:\Working\blogify\BlogifySolution\BlogifyWebApp\obj\Release\net5.0\BlogifyWebApp.genruntimeconfig.cache
+c:\working\blogify\BlogifySolution\BlogifyWebApp\obj\Release\net5.0\BlogifyWebApp.csprojAssemblyReference.cache

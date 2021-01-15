@@ -2,6 +2,9 @@
 Blogify is a micro blog engine developed in .NET Core 5. This project was made with 
 Microsoft Visual Studio Community 2019 Versión 16.8.4.
 
+## Total Time
+I took aproximately 18 hrs + 2 Hours of planning and reading some articles.
+
 ## Database
 This project runs with MS SQL Server 2019 Express. Please run: Script DBBlogify.sql file 
 to create the database with some sample data.
