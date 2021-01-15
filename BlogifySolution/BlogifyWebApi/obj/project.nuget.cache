@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "w2pOABeML2OSFMpTuriD6ZsQ2uyQso6YDJkvN4HYlHNQ8TjNySZaHweKUe19aa6mpRldsvT29kMb2YoTQQPkOQ==",
+  "dgSpecHash": "K73UqX8CZrQmPfFt+JPK4dT1fDBsdE5QiCXrfdZfVIMYSkWKRYvjIjaJzofNGY1J5PhscbSxpDDo8ETrxb533A==",
   "success": true,
-  "projectFilePath": "C:\\Working\\blogify\\BlogifySolution\\BlogifyWebApi\\BlogifyWebApi.csproj",
+  "projectFilePath": "c:\\working\\blogify\\BlogifySolution\\BlogifyWebApi\\BlogifyWebApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\klacatt.INTRACARGASA\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\klacatt.INTRACARGASA\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

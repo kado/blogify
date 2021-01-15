@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Working\\blogify\\BlogifySolution\\BlogifyWebApp\\BlogifyWebApp.csproj": {}
+    "c:\\working\\blogify\\BlogifySolution\\BlogifyWebApp\\BlogifyWebApp.csproj": {}
   },
   "projects": {
-    "C:\\Working\\blogify\\BlogifySolution\\BlogifyWebApp\\BlogifyWebApp.csproj": {
+    "c:\\working\\blogify\\BlogifySolution\\BlogifyWebApp\\BlogifyWebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Working\\blogify\\BlogifySolution\\BlogifyWebApp\\BlogifyWebApp.csproj",
+        "projectUniqueName": "c:\\working\\blogify\\BlogifySolution\\BlogifyWebApp\\BlogifyWebApp.csproj",
         "projectName": "BlogifyWebApp",
-        "projectPath": "C:\\Working\\blogify\\BlogifySolution\\BlogifyWebApp\\BlogifyWebApp.csproj",
+        "projectPath": "c:\\working\\blogify\\BlogifySolution\\BlogifyWebApp\\BlogifyWebApp.csproj",
         "packagesPath": "C:\\Users\\klacatt.INTRACARGASA\\.nuget\\packages\\",
-        "outputPath": "C:\\Working\\blogify\\BlogifySolution\\BlogifyWebApp\\obj\\",
+        "outputPath": "c:\\working\\blogify\\BlogifySolution\\BlogifyWebApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
