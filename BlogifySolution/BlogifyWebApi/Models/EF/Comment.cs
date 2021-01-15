@@ -8,6 +8,8 @@ using BlogifyWebApi.Models.Interfaces;
 
 namespace BlogifyWebApi.Models.EF
 {
+    //2021-01-14 - Kadel D. Lacatt
+    //EF Comment points to db table Comment
     public partial class Comment : IComment
     {
         public int Id { get; set; }

@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace BlogifyWebApi.Models.Helpers
 {
+    //2021-01-14 - Kadel D. Lacatt
+    //General class for common tasks, filled with static methods and properties
+    //used in the entire web app
     public class GeneralHelper
     {
 

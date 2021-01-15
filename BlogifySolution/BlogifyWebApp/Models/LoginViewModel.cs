@@ -6,6 +6,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BlogifyWebApp.Models
 {
+    //2021-01-13 - Kadel D. Lacatt
+    //View Model for exchage user credentials between login view
     public class LoginViewModel
     {
         [Required]

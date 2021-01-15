@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace BlogifyWebApp.Models
 {
+    //2021-01-13 - Kadel D. Lacatt
+    //View Model used for rendering partial views with alerts
     public class ResultViewModel
     {
         public int Code { get; set; }

@@ -10,6 +10,8 @@ using BlogifyWebApp.Models.Interfaces;
 
 namespace BlogifyWebApp.Models
 {
+    //2021-01-13 - Kadel D. Lacatt
+    //View Model for exchage List of blog data between views, implements IBlog
     public class ListBlogViewModel
     {
         [Display(Name = "Category Filter")]

@@ -7,6 +7,8 @@ using BlogifyWebApp.Models.Interfaces;
 
 namespace BlogifyWebApp.Models
 {
+    //2021-01-13 - Kadel D. Lacatt
+    //View Model for exchage blog data between views, implements IBlog
     public class BlogCreateViewModel : IBlog 
     {
         public int Id { get; set; }

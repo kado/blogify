@@ -6,6 +6,8 @@ using BlogifyWebApp.Models.Interfaces;
 
 namespace BlogifyWebApp.Models.EF
 {
+    //2021-01-13 - Kadel D. Lacatt
+    //EF User entity points to db table User
     public partial class User : IUser
     {
         public User()

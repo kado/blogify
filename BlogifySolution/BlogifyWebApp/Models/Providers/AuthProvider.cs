@@ -17,8 +17,8 @@ namespace BlogifyWebApp.Models.Providers
         private DBBlogifyContext db;
         ILogger<BlogProvider> _logger;
 
-        //2020-01-13 - Kadel D. Lacatt
-        //This class provides funcitons for checking users and retrive Users profiles.
+        //2021-01-13 - Kadel D. Lacatt
+        //This class provides functions for checking users and retrive Users profiles.
         public AuthProvider(ILogger<BlogProvider> logger)
         {
             //Initialize the logger
@@ -31,6 +31,9 @@ namespace BlogifyWebApp.Models.Providers
             }
         }
 
+        //2021-01-13 - Kadel D. Lacatt
+        //Retrives the user profile given a username (string)
+        //Returns IUser 
         IUser IAuthProvider.GetUser(string username)
         {
             try
@@ -43,6 +46,9 @@ namespace BlogifyWebApp.Models.Providers
             }
         }
 
+        //2021-01-13 - Kadel D. Lacatt
+        //Verify user credentials against db stored credentials
+        //Return true if the user is authenticated or false otherwise.
         bool IAuthProvider.VerifyUser(string username, string password)
         {
             try

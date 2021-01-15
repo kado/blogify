@@ -16,8 +16,8 @@ namespace BlogifyWebApp.Controllers
     {
         private readonly IBlogProvider _blogProvider;
 
-        //2021-01-13 - Kadel D. Lacatt
-        //public BlogController(IBlogProvider blogProvider)
+        //2021-01-14 - Kadel D. Lacatt
+        //public EditorController(IBlogProvider blogProvider)
         //Controller constructor, input parameters is DI for IBlogProvider and BloProvider
         public EditorController(IBlogProvider blogProvider)
         {

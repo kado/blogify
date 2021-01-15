@@ -8,6 +8,8 @@ using BlogifyWebApp.Models.Interfaces;
 
 namespace BlogifyWebApp.Models.EF
 {
+    //2021-01-13 - Kadel D. Lacatt
+    //EF Category entity points to db table Category
     public partial class Category : ICategory
     {
         public Category()

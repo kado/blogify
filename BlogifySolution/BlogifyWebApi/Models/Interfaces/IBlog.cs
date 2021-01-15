@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace BlogifyWebApi.Models.Interfaces
 {
+    //2021-01-14 - Kadel D. Lacatt
+    //Interface for abstracting Blog entity and use DI
     public interface IBlog
     {
         public int Id { get; set; }

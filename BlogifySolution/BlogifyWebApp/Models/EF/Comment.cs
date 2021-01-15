@@ -8,6 +8,8 @@ using BlogifyWebApp.Models.Interfaces;
 
 namespace BlogifyWebApp.Models.EF
 {
+    //2021-01-13 - Kadel D. Lacatt
+    //EF Comment entity points to db table Comment
     public partial class Comment : IComment
     {
         public int Id { get; set; }

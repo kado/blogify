@@ -17,23 +17,32 @@ namespace BlogifyWebApp.Controllers
 {
     public class AccountController : Controller
     {
-        //2020-01-13 - Kadel D. Lacatt
-        //public ActionResult Login()
-        //Handles GET request to /Account/Login, shows the Login view where users
-        //con start session.
-
+        
         private readonly IAuthProvider _authProvider;
 
+        //2021-01-13 - Kadel D. Lacatt
+        //public AccountController(IAuthProvider authProvider)
+        //Controller constructor, input parameters instance by DI with IAuthProvider
         public AccountController(IAuthProvider authProvider)
         {
             this._authProvider = authProvider;
         }
+        //----------------------------------------------------------------------------------------------------------------------------
+        
+        //2021-01-13 - Kadel D. Lacatt
+        //public ActionResult Login()
+        //Handles GET request to /Account/Login, shows the Login view where users
+        //con start session.
         public ActionResult Login()
         {
             return View();
         }
+        //----------------------------------------------------------------------------------------------------------------------------
 
-        // POST: AccountController/Create
+        //2021-01-13 - Kadel D. Lacatt
+        //Handles POST request to /Account/Login, validates users against the db
+        //Is asyncronous becaused invokes SignInAsync method for setting the auth cookie.
+        //if login is successfull redirects to Home/Index action, otherwise return Login View.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel loginVM)
@@ -106,8 +115,12 @@ namespace BlogifyWebApp.Controllers
                 return View();
             }
         }
+        //----------------------------------------------------------------------------------------------------------------------------
 
-
+        //2021-01-13 - Kadel D. Lacatt
+        //Handles POST request to /Account/Logout, Logs out a user destroying its auth cookie
+        //Is asyncronous becaused invokes SignOutAsync method for destroying the auth cookie.
+        //if logout is successfull redirects to Account/Login action, otherwise redirects to Home/Index.
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]

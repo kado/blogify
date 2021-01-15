@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace BlogifyWebApi.Models.Interfaces
 {
+    //2021-01-14 - Kadel D. Lacatt
+    //Interface for abstracting User entity and use DI
     public interface IUser
     {
         public string Username { get; set; }

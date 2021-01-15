@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace BlogifyWebApi.Models.EF
 {
+    //2021-01-14 - Kadel D. Lacatt
+    //EF DBContext used for mapping and accessing the db.
     public partial class DBBlogifyContext : DbContext
     {
         public DBBlogifyContext()

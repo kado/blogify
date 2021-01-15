@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace BlogifyWebApp.Models.Interfaces
 {
+    //2021-01-14 Kadel D Lacatt
+    //Interface for abstracting Comment class for DI purposes
     public interface IComment
     {
 

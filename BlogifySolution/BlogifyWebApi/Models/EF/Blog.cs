@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using BlogifyWebApi.Models.Interfaces;
 
 #nullable disable
-
+//2021-01-14 - Kadel D. Lacatt
+//EF Blog points to db table Blog
 namespace BlogifyWebApi.Models.EF
 {
     public partial class Blog : IBlog

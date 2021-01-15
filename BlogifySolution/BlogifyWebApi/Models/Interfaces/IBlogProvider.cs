@@ -9,6 +9,8 @@ using BlogifyWebApi.Models.Helpers;
 
 namespace BlogifyWebApi.Models.Interfaces
 {
+    //2021-01-14 - Kadel D. Lacatt
+    //Interface for abstracting BlogProvider class and use DI
     public interface IBlogProvider
     {
 

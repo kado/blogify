@@ -7,6 +7,10 @@ using Newtonsoft.Json;
 
 namespace BlogifyWebApp.Models.Helpers
 {
+    //2021-01-14 - Kadel D. Lacatt
+    //Static class with methods Put and Get for extending TempData storage
+    //allows to stored and retrieves complex object in TempData.
+    //uses Json serialization for this purpose
     public static class TempDataExtensions
     {
         public static void Put<T>(this ITempDataDictionary tempData, string key, T value) where T : class

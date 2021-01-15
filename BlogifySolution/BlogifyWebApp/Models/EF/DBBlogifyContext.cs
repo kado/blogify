@@ -6,8 +6,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace BlogifyWebApp.Models.EF
 {
+    //2021-01-13 - Kadel D. Lacatt
+    //DBContext for accesing to the database
     public partial class DBBlogifyContext : DbContext
     {
+        
         public DBBlogifyContext()
         {
         }
