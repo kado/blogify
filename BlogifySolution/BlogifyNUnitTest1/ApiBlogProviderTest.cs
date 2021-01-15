@@ -1,19 +1,18 @@
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
 using System;
 
-using BlogifyWebApp.Models;
-using BlogifyWebApp.Models.Providers;
-using BlogifyWebApp.Models.Interfaces;
-using BlogifyWebApp.Models.EF;
+using BlogifyWebApi.Models;
+using BlogifyWebApi.Models.Providers;
+using BlogifyWebApi.Models.Interfaces;
+using BlogifyWebApi.Models.EF;
 
 namespace BlogifyNUnitTest1
 {
-    public class BlogProviderTests
+    class ApiBlogProviderTest
     {
-
         private IBlogProvider blogProvider;
         private Logger<BlogProvider> logger;
 
@@ -108,7 +107,7 @@ namespace BlogifyNUnitTest1
         public void Test_SaveEmptyBlog()
         {
 
-            BlogCreateViewModel blog = new BlogCreateViewModel();
+            Blog blog = new Blog();
             var result = blogProvider.SaveBlog(blog);
             Assert.IsFalse(result);
 
@@ -154,7 +153,7 @@ namespace BlogifyNUnitTest1
             Assert.IsNull(result);
 
             result = (List<Blog>)blogProvider.ListMyBlogs("blogger1", null);
-            Assert.IsTrue(result.Count >=0);
+            Assert.IsTrue(result.Count >= 0);
         }
 
         [Test]
@@ -163,7 +162,7 @@ namespace BlogifyNUnitTest1
             //Set status to non existing blog.
             var result = blogProvider.SetStatusTo(-1, "P", "");
             Assert.IsFalse(result, "Failed SetStatusTo non existing blog.");
-            
+
             //Set status to non existing blog. With invalid status code and empty username
             result = blogProvider.SetStatusTo(1, "X", "");
             Assert.IsFalse(result, "Failed SetStatusTo existing blog. With invalid status code and empty username.");
@@ -172,6 +171,5 @@ namespace BlogifyNUnitTest1
             Assert.IsTrue(result, "Failed SetStatusTo existing blog. With valid status code and valid username.");
 
         }
-
     }
 }

@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 #nullable disable
 
+using BlogifyWebApp.Models.Interfaces;
+
 namespace BlogifyWebApp.Models.EF
 {
     //2021-01-13 - Kadel D. Lacatt

@@ -494,3 +494,10 @@ c:\working\blogify\BlogifySolution\BlogifyNUnitTest1\obj\Debug\net5.0\BlogifyNUn
 c:\working\blogify\BlogifySolution\BlogifyNUnitTest1\obj\Debug\net5.0\ref\BlogifyNUnitTest1.dll
 c:\working\blogify\BlogifySolution\BlogifyNUnitTest1\obj\Debug\net5.0\BlogifyNUnitTest1.pdb
 c:\working\blogify\BlogifySolution\BlogifyNUnitTest1\obj\Debug\net5.0\BlogifyNUnitTest1.genruntimeconfig.cache
+c:\working\blogify\BlogifySolution\BlogifyNUnitTest1\bin\Debug\net5.0\BlogifyWebApi.exe
+c:\working\blogify\BlogifySolution\BlogifyNUnitTest1\bin\Debug\net5.0\Microsoft.OpenApi.dll
+c:\working\blogify\BlogifySolution\BlogifyNUnitTest1\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+c:\working\blogify\BlogifySolution\BlogifyNUnitTest1\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+c:\working\blogify\BlogifySolution\BlogifyNUnitTest1\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+c:\working\blogify\BlogifySolution\BlogifyNUnitTest1\bin\Debug\net5.0\BlogifyWebApi.dll
+c:\working\blogify\BlogifySolution\BlogifyNUnitTest1\bin\Debug\net5.0\BlogifyWebApi.pdb

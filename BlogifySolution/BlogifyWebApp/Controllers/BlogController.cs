@@ -378,7 +378,7 @@ namespace BlogifyWebApp.Controllers
                 {
                      Id = blog.Id,
                      Category = blog.Category,
-                     Data = blog.Data,
+                     Data = System.Web.HttpUtility.HtmlDecode(blog.Data),
                      Title = blog.Title
                 });
 

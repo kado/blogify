@@ -15,7 +15,7 @@ namespace BlogifyWebApp.Models.Providers
     //This class provides functions for CRUD of the Blog entities.
     public class BlogProvider: IBlogProvider
     {
-        
+
         private DBBlogifyContext db;
         ILogger<BlogProvider> _logger;
 
@@ -206,10 +206,15 @@ namespace BlogifyWebApp.Models.Providers
         {
             try
             {
-
-                return db.Blogs.Where(b => b.Id == blogId && b.Author.Trim() == userName.Trim() &&
-                                      b.Status == GeneralHelper.REJECTED_STATUS).SingleOrDefault();
-
+                if (!String.IsNullOrEmpty(userName))
+                {
+                    return db.Blogs.Where(b => b.Id == blogId && b.Author.Trim() == userName.Trim() &&
+                                          b.Status == GeneralHelper.REJECTED_STATUS).SingleOrDefault();
+                }
+                else
+                {
+                    throw new Exception("Could not retrieve blog because username is a required parameter");
+                }
             }
             catch (Exception ex)
             {
@@ -285,16 +290,25 @@ namespace BlogifyWebApp.Models.Providers
         {
             try
             {
-                                
-                db.Comments.Add( new Comment { 
-                    BlogId= blogId, 
-                    Author= commentAuthor, 
-                    Created= System.DateTime.Now,
-                    Data = commentData
-                });
-                db.SaveChanges();
-                return true;
-            }catch (Exception ex)
+
+                if (!String.IsNullOrEmpty(commentData))
+                {
+                    db.Comments.Add(new Comment
+                    {
+                        BlogId = blogId,
+                        Author = commentAuthor,
+                        Created = System.DateTime.Now,
+                        Data = commentData
+                    });
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    throw new Exception("Comment could not be added. The comment text is mandatory.");
+                }
+            }
+            catch (Exception ex)
             {
                 _logger.LogError(GeneralHelper.GetMessageFromException(this.GetType().ToString(), ex));
                 return false;

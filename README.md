@@ -25,6 +25,10 @@ These are the software credentials for testing purposes:
 | blogger2 | Back4g00d | Writer |
 | klacatt | Back4g00d | Editor |
 
+## Unit Testing
+A unit testing project was added. Tests class were implemented just to test methods 
+for BlogProvider Class in both BlogifyWebApp and BlogifyWebApi
+
 ## BlogifyWebApp
 
 Is a ASP.NET Core MVC 5 Web Application for handling Editor's operations.

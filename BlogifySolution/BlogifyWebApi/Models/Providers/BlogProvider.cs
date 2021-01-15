@@ -205,10 +205,15 @@ namespace BlogifyWebApi.Models.Providers
         {
             try
             {
-
-                return db.Blogs.Where(b => b.Id == blogId && b.Author.Trim() == userName.Trim() &&
+                if (userName != null)
+                {
+                    return db.Blogs.Where(b => b.Id == blogId && b.Author.Trim() == userName.Trim() &&
                                       b.Status == GeneralHelper.REJECTED_STATUS).SingleOrDefault();
-
+                }
+                else
+                {
+                    throw new Exception("Could not retrieve blog because username is a required parameter");
+                }
             }
             catch (Exception ex)
             {
@@ -284,15 +289,24 @@ namespace BlogifyWebApi.Models.Providers
         {
             try
             {
-                                
-                db.Comments.Add( new Comment { 
-                    BlogId= blogId, 
-                    Author= commentAuthor, 
-                    Created= System.DateTime.Now,
-                    Data = commentData
-                });
-                db.SaveChanges();
-                return true;
+
+                if (!String.IsNullOrEmpty(commentData))
+                {
+                    db.Comments.Add(new Comment
+                    {
+                        BlogId = blogId,
+                        Author = commentAuthor,
+                        Created = System.DateTime.Now,
+                        Data = commentData
+                    });
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    throw new Exception("Comment could not be added. The comment text is mandatory.");
+                }
+                
             }catch (Exception ex)
             {
                 _logger.LogError(GeneralHelper.GetMessageFromException(this.GetType().ToString(), ex));
@@ -326,19 +340,27 @@ namespace BlogifyWebApi.Models.Providers
         {
             try
             {
-                if (blogCategory != null)
+                if (!String.IsNullOrEmpty(username))
                 {
-                    return db.Blogs.Where(b => b.Category == blogCategory &&
-                                               b.Author.Trim() == username.Trim())
-                                   .OrderBy(b => b.Created)
-                                   .ToList();
+                    if (blogCategory != null)
+                    {
+                        return db.Blogs.Where(b => b.Category == blogCategory &&
+                                                   b.Author.Trim() == username.Trim())
+                                       .OrderBy(b => b.Created)
+                                       .ToList();
+                    }
+                    else
+                    {
+                        return db.Blogs.Where(b => b.Author.Trim() == username.Trim())
+                                       .OrderBy(b => b.Created)
+                                       .ToList();
+                    }
                 }
                 else
                 {
-                    return db.Blogs.Where(b => b.Author.Trim() == username.Trim())
-                                   .OrderBy(b => b.Created)
-                                   .ToList();
+                    throw new Exception("Blog list could not be retrieved. Username is required.");
                 }
+                
             }
             catch (Exception ex)
             {
@@ -360,14 +382,20 @@ namespace BlogifyWebApi.Models.Providers
 
                 if (dbBlog != null)
                 {
-                    //Sets status back to pending so Editor users can check again
-                    dbBlog.Status = status;
-                    dbBlog.Editor = editorUser;
-                    dbBlog.Edited = System.DateTime.Now;
-                    db.SaveChanges();
+                    if (!String.IsNullOrEmpty(editorUser))
+                    {
+                        //Sets status back to pending so Editor users can check again
+                        dbBlog.Status = status;
+                        dbBlog.Editor = editorUser;
+                        dbBlog.Edited = System.DateTime.Now;
+                        db.SaveChanges();
 
-                    return true;
-
+                        return true;
+                    }
+                    else
+                    {
+                        throw new Exception("Could not retrieve blog because username is a required parameter");
+                    }
                 }
                 else
                 {
