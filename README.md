@@ -25,7 +25,7 @@ Microsoft.EntityFrameworkCore Version 5.0.2
 Microsoft.EntityFrameworkCore.SqlServer Version 5.0.2
 Microsoft.EntityFrameworkCore.Tools Version 5.0.2
 
-##Connections Strings 
+## Connections Strings 
 The connection string is in appsettings.json, must be changed in order run the project:
 ```json
   "ConnectionStrings": {
@@ -44,8 +44,8 @@ Microsoft.EntityFrameworkCore.Tools Version 5.0.2
 Newtonsoft.Json Version 12.0.3 
 Swashbuckle.AspNetCore Version 5.6.3
 
-##  Available Endpoints
-[/Category/List]
+## Available Endpoints
+##  /Category/List
 GET Method
 Returns a list of blog categories. 
 OutPut:
@@ -59,7 +59,7 @@ OutPut:
 	]
 ```
 
-[/Blog/List[?categoryId=X]]
+##  /Blog/List?categoryId=X
 GET Method
 Return a list of blog entries. An optional categoryId querystring parameters
 can bet set to filter results by certain blog category.
@@ -82,7 +82,7 @@ OutPut:
 	]
 ```
 
-[/Blog/{id}]
+##  /Blog/{id}
 GET Method
 Returns a blog entry from the given id in route.
 OutPut:
@@ -100,7 +100,7 @@ OutPut:
 		string Status
 	}
 ```
-[/Blog/Approve/{id}]
+##  /Blog/Approve/{id}
 PUT Method
 Set the status of blog entry to APPROVED. From route obtains integer with blog id
 FromBody obtains a single string (json format) with the editor user name (always "klacatt", quotes must be included).
@@ -108,14 +108,14 @@ OutPut: Implements IActionResult returning 200 status code success.
 		Returns  Not found if the blog is not found. 
 		Returns  Bad Request if the blog id is invalid or if an exception is thrown.
 		
-[/Blog/Delete/{id}]
+##  /Blog/Delete/{id}
 DELETE Method
 Deletes the blog entry with the given id. Blog id is retrieved from path
 OutPut: Implements IActionResult returning 200 status code success.
 		Returns  Not found if the blog is not found. 
 		Returns  Bad Request if the blog id is invalid or if an exception is thrown.
 
-[/Blog/Reject/{id}]
+##  /Blog/Reject/{id}
 Set the status of blog entry to REJECTED. From route obtains integer with blog id
 FromBody obtains a single string (json format) with the editor user name (always "klacatt", quotes must be included).
 OutPut: Implements IActionResult returning 200 status code success.
@@ -123,7 +123,7 @@ OutPut: Implements IActionResult returning 200 status code success.
 		Returns  Bad Request if the blog id is invalid or if an exception is thrown.
 
 
-##Connections Strings 
+## Connections Strings 
 The connection string is in appsettings.json, must be changed in order run the project:
 ```json
   "ConnectionStrings": {
