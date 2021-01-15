@@ -6,6 +6,19 @@ Microsoft Visual Studio Community 2019 Versión 16.8.4.
 This project runs with MS SQL Server 2019 Express. Please run: Script DBBlogify.sql file 
 to create the database with some sample data.
 
+## Testing Credentials
+Username: blogger1
+Password: Back4g00d
+Role: Writer
+---------------------------------
+Username: blogger2
+Password: Back4g00d
+Role: Writer
+---------------------------------
+Username: klacatt
+Password: Back4g00d
+Role: Editor
+
 ## BlogifyWebApp
 
 Is a ASP.NET Core MVC 5 Web Application for handling Editor's operations.
@@ -34,9 +47,9 @@ Microsoft.EntityFrameworkCore.Tools Version 5.0.2
 Newtonsoft.Json Version 12.0.3 
 Swashbuckle.AspNetCore Version 5.6.3
 
-###Available Endpoints
-GET Method
+##  Available Endpoints
 "/Category/List"
+GET Method
 Returns a list of blog categories. 
 OutPut:
 ``` C#
