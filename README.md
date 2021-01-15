@@ -7,17 +7,13 @@ This project runs with MS SQL Server 2019 Express. Please run: Script DBBlogify.
 to create the database with some sample data.
 
 ## Testing Credentials
-Username: blogger1
-Password: Back4g00d
-Role: Writer
----------------------------------
-Username: blogger2
-Password: Back4g00d
-Role: Writer
----------------------------------
-Username: klacatt
-Password: Back4g00d
-Role: Editor
+These are the software credentials for testing purposes:
+
+| Username | Password | Role |
+| ------ | ------ | ------ |
+| blogger1 | Back4g00d | Writer |
+| blogger2 | Back4g00d | Writer |
+| klacatt | Back4g00d | Editor |
 
 ## BlogifyWebApp
 
