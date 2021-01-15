@@ -6,6 +6,16 @@ Microsoft Visual Studio Community 2019 Versión 16.8.4.
 This project runs with MS SQL Server 2019 Express. Please run: Script DBBlogify.sql file 
 to create the database with some sample data.
 
+## Dependency Injection
+Dependency Injection is implemented with defaults .NET Core 5.0 tools. Check Startup.cs for service configuration:
+``` C#
+services.AddScoped<BlogifyWebApi.Models.Interfaces.IBlogProvider, BlogifyWebApi.Models.Providers.BlogProvider>();
+services.AddScoped<BlogifyWebApi.Models.Interfaces.IBlog, BlogifyWebApi.Models.EF.Blog>();
+services.AddScoped<BlogifyWebApi.Models.Interfaces.ICategory, BlogifyWebApi.Models.EF.Category>();
+services.AddScoped<BlogifyWebApi.Models.Interfaces.IUser, BlogifyWebApi.Models.EF.User>();
+services.AddScoped<BlogifyWebApi.Models.Interfaces.IComment, BlogifyWebApi.Models.EF.Comment>();
+```
+
 ## Testing Credentials
 These are the software credentials for testing purposes:
 

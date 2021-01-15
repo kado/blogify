@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogifyWebApp", "BlogifyWebApp\BlogifyWebApp.csproj", "{32EC3533-4C65-4BBA-9425-B8504319F60C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogifyWebApp", "BlogifyWebApp\BlogifyWebApp.csproj", "{32EC3533-4C65-4BBA-9425-B8504319F60C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogifyWebApi", "BlogifyWebApi\BlogifyWebApi.csproj", "{B3D9038A-AF58-4156-A189-0A25B8EF2FB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogifyWebApi", "BlogifyWebApi\BlogifyWebApi.csproj", "{B3D9038A-AF58-4156-A189-0A25B8EF2FB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogifyNUnitTest1", "BlogifyNUnitTest1\BlogifyNUnitTest1.csproj", "{6E394728-103E-493D-B08F-A4ECA665B304}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{B3D9038A-AF58-4156-A189-0A25B8EF2FB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3D9038A-AF58-4156-A189-0A25B8EF2FB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3D9038A-AF58-4156-A189-0A25B8EF2FB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E394728-103E-493D-B08F-A4ECA665B304}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E394728-103E-493D-B08F-A4ECA665B304}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E394728-103E-493D-B08F-A4ECA665B304}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E394728-103E-493D-B08F-A4ECA665B304}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

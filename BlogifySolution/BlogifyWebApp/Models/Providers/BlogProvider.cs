@@ -327,19 +327,26 @@ namespace BlogifyWebApp.Models.Providers
         {
             try
             {
-                if (blogCategory != null)
+                if (!String.IsNullOrEmpty(username))
                 {
-                    return db.Blogs.Where(b => b.Category == blogCategory &&
-                                               b.Author.Trim() == username.Trim())
-                                   .OrderBy(b => b.Created)
-                                   .ToList();
-                }
-                else
+                    if (blogCategory != null)
+                    {
+                        return db.Blogs.Where(b => b.Category == blogCategory &&
+                                                   b.Author.Trim() == username.Trim())
+                                       .OrderBy(b => b.Created)
+                                       .ToList();
+                    }
+                    else
+                    {
+                        return db.Blogs.Where(b => b.Author.Trim() == username.Trim())
+                                       .OrderBy(b => b.Created)
+                                       .ToList();
+                    }
+                }else
                 {
-                    return db.Blogs.Where(b => b.Author.Trim() == username.Trim())
-                                   .OrderBy(b => b.Created)
-                                   .ToList();
+                    throw new Exception("Cannot retreive blog list. Username parameter is required.");
                 }
+                
             }
             catch (Exception ex)
             {
@@ -361,18 +368,27 @@ namespace BlogifyWebApp.Models.Providers
 
                 if (dbBlog != null)
                 {
-                    //Sets status back to pending so Editor users can check again
-                    dbBlog.Status = status;
-                    dbBlog.Editor = editorUser;
-                    dbBlog.Edited = System.DateTime.Now;
-                    db.SaveChanges();
+                    
+                    //Check if status has a valid status code
+                    if (GeneralHelper.STATUSNAMES.ContainsKey(status))
+                    {
+                        dbBlog.Status = status;
+                        dbBlog.Editor = editorUser;
+                        dbBlog.Edited = System.DateTime.Now;
+                        db.SaveChanges();
 
-                    return true;
+                        return true;
+                    }else
+                    {
+                        throw new Exception("Status code sent is not valid (P,A,R). Please check your " + 
+                                            "data and try again or contact support.");
+                    }
 
                 }
                 else
                 {
-                    throw new Exception("Blog entry does not exist. Please check your data and try again or contact support.");
+                    throw new Exception("Blog entry does not exist. Please check your data and try again " + 
+                                        "or contact support.");
                 }
 
             }
