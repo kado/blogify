@@ -8,7 +8,7 @@ to create the database with some sample data.
 
 ## BlogifyWebApp
 
-Is ASP.NET Core MVC 5 Web Application.
+Is a ASP.NET Core MVC 5 Web Application for handling Editor's operations.
 
 Nuget Packages Required:
 Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation Version 5.0.2
@@ -34,9 +34,9 @@ Microsoft.EntityFrameworkCore.Tools Version 5.0.2
 Newtonsoft.Json Version 12.0.3 
 Swashbuckle.AspNetCore Version 5.6.3
 
-Available Endpoints
+###Available Endpoints
 GET Method
-/Category/List
+"/Category/List"
 Returns a list of blog categories. 
 OutPut:
 ``` C#
@@ -49,7 +49,7 @@ OutPut:
 	]
 ```
 
-/Blog/List[?categoryId=X]
+"/Blog/List[?categoryId=X]"
 GET Method
 Return a list of blog entries. An optional categoryId querystring parameters
 can bet set to filter results by certain blog category.
@@ -72,7 +72,7 @@ OutPut:
 	]
 ```
 
-/Blog/{id}
+"/Blog/{id}"
 GET Method
 Returns a blog entry from the given id in route.
 OutPut:
@@ -90,7 +90,7 @@ OutPut:
 		string Status
 	}
 ```
-/Blog/Approve/{id}
+"/Blog/Approve/{id}"
 PUT Method
 Set the status of blog entry to APPROVED. From route obtains integer with blog id
 FromBody obtains a single string (json format) with the editor user name (always "klacatt", quotes must be included).
@@ -98,14 +98,14 @@ OutPut: Implements IActionResult returning 200 status code success.
 		Returns  Not found if the blog is not found. 
 		Returns  Bad Request if the blog id is invalid or if an exception is thrown.
 		
-/Blog/Delete/{id}
+"/Blog/Delete/{id}"
 DELETE Method
 Deletes the blog entry with the given id. Blog id is retrieved from path
 OutPut: Implements IActionResult returning 200 status code success.
 		Returns  Not found if the blog is not found. 
 		Returns  Bad Request if the blog id is invalid or if an exception is thrown.
 
-/Blog/Reject/{id}
+"/Blog/Reject/{id}"
 Set the status of blog entry to REJECTED. From route obtains integer with blog id
 FromBody obtains a single string (json format) with the editor user name (always "klacatt", quotes must be included).
 OutPut: Implements IActionResult returning 200 status code success.
@@ -120,7 +120,7 @@ Connections Strings is in appsettings.json, must be changed in order run project
   },
 ```
 
-[Test Usage](http://blogify.southcentralus.cloudapp.azure.com/webapi)
+[Test API Usage](http://blogify.southcentralus.cloudapp.azure.com/webapi)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
